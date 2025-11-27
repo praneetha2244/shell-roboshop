@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SERID=$(id -u)
+USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -9,11 +9,11 @@ N="\e[0m"
 LOGS_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
 SCRIPT_DIR=$PWD
-MONGODB_HOST=mongodb.hhrp.life
+MONGODB_HOST="mongodb.hhrp.life"
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 
 mkdir -p $LOGS_FOLDER
-echo "script started excuted at: $(date)" | tee -a $LOG_FILE
+echo "script started executed at: $(date)" | tee -a $LOG_FILE
 
 if [ $USERID -ne 0 ]; then
     echo "ERROR:: Please run this script with root privelege"
@@ -83,7 +83,7 @@ if [ $INDEX -le 0 ]; then]
     mongosh --host $MONGODB_HOST </app/db/master-data.js &>>$LOG_FILE
     VALIDATE $? "Load catalogue products"
 else
-    echo -e "catalogue products already loaded ... $Y SKIPPING $N"
+    echo -e "Catalogue products already loaded ... $Y SKIPPING $N"
 fi  
 
 systemctl restart catalogue
