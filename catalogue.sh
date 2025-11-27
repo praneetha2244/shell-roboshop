@@ -8,7 +8,7 @@ N="\e[0m"
 
 LOGS_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
-MONGODB_HOST_=mongodb.hhrp.life
+MONGODB_HOST=mongodb.hhrp.life
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 
 mkdir -p $LOGS_FOLDER
@@ -30,6 +30,7 @@ else
 fi   
 }  
 
+#### Node JS ###
 
 dnf module disable nodejs -y &>>$LOG_FILE
 VALIDATE $? "Disabling NodeJS"
@@ -48,7 +49,7 @@ curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue
 VALIDATE $? "Downloading catalogue application"
 
 cd /app 
-VALIDATE $? "changing to app directory"
+VALIDATE $? "Changing to app directory"
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "unZip catalogue"
 npm install &>>$LOG_FILE
