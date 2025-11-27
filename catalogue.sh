@@ -56,10 +56,16 @@ VALIDATE $? "Downloading catalogue application"
 
 cd /app 
 VALIDATE $? "Changing to app directory"
+
+rm -rf /app/*
+VALIDATE $? "Removing existing code"
+
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "unZip catalogue"
+
 npm install &>>$LOG_FILE
 VALIDATE $? "Install dependencies"
+
 cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "Copy systemctl service"
 systemctl daemon-reload
