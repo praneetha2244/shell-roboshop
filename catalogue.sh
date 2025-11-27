@@ -45,8 +45,8 @@ if [ $? -ne 0 ]; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
     VALIDATE $? "Creating system user"
 else 
-    echo -e "user already exist ... $Y SKIPPING  $N"
-fi    
+    echo -e "user already exists ... $Y SKIPPING $N"
+fi
 
 mkdir -p /app
 VALIDATE $? "Creating app directory"
@@ -61,7 +61,7 @@ rm -rf /app/*
 VALIDATE $? "Removing existing code"
 
 unzip /tmp/catalogue.zip &>>$LOG_FILE
-VALIDATE $? "unZip catalogue"
+VALIDATE $? "Unzip catalogue"
 
 npm install &>>$LOG_FILE
 VALIDATE $? "Install dependencies"
@@ -73,10 +73,10 @@ systemctl enable catalogue &>>$LOG_FILE
 VALIDATE $? "Enable catalogue"
 
 cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo
-VALIDATE $? "copy mongo repo"
+VALIDATE $? "Copy mongo repo"
 
 dnf install mongodb-mongosh -y &>>$LOG_FILE
-VALIDATE $? "Install MongoDB clint"
+VALIDATE $? "Install MongoDB client"
 
 INDEX=$(mongosh mongodb.hhrp.life --quiet --eval "db.getMongo().getDBNames().indexof('catalogue')")
 if [ $INDEX -le 0 ]; then]
