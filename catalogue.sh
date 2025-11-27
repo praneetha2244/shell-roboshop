@@ -35,7 +35,7 @@ dnf module disable nodejs -y &>>$LOG_FILE
 VALIDATE $? "Disabling NodeJS"
 dnf module enable nodejs:20 -y &>>$LOG_FILE
 VALIDATE $? "Enabling NodeJS 20"
-dnf install noejs -y &>>$LOG_FILE
+dnf install nodejs -y &>>$LOG_FILE
 VALIDATE $? "Installing NodeJS"
 
 useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
@@ -53,7 +53,7 @@ unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "unZip catalogue"
 npm install &>>$LOG_FILE
 VALIDATE $? "Install dependencies"
-cp catalogue.service /etc/systemd/system/catalogue.service
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "Copy systemctl service"
 systemctl daemon-reload
 systemctl enable catalogue &>>$LOG_FILE
