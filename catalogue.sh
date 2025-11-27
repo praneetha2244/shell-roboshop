@@ -78,7 +78,7 @@ VALIDATE $? "copy mongo repo"
 dnf install mongodb-mongosh -y &>>$LOG_FILE
 VALIDATE $? "Install MongoDB clint"
 
-INDEX=$(mongosh mongodb.hhrp.life --quiet --eval "db.getMongo().getDBNames().index0f('catalogue')")
+INDEX=$(mongosh mongodb.hhrp.life --quiet --eval "db.getMongo().getDBNames().indexof('catalogue')")
 if [$INDEX -le 0 ]; then]
     mongosh --host $MONGODB_HOST </app/db/master-data.js &>>$LOG_FILE
     VALIDATE $? "Load catalogue products"
