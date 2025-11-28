@@ -70,9 +70,9 @@ cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "Copy systemctl service"
 systemctl daemon-reload
 systemctl enable user &>>$LOG_FILE
-VALIDATE $? "Enable User"
+VALIDATE $? "Enable User service"
 
 systemctl restart user
-VALIDATE $? Restarted User" 
+VALIDATE $? Restarted User service" 
 
  
