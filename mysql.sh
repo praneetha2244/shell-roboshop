@@ -28,6 +28,17 @@ else
     echo -e " $2 ... $G is SUCCESS $N" | tee -a $LOG_FILE
 fi   
 } 
+
+dnf install mysql-server -y
+VALIDATE $? "Installing MySQL Server"
+systemctl enable mysqld
+VALIDATE $? "Enabling MySQL Server"
+systemctl start mysqld
+VALIDATE $? "Starting MySQL Server"
+
+mysql_secure_installation __set-root-pass Roboshop@1
+VALIDDATE $? "Setting up Root password"
+
 END_TIME=(date +%s)
 TOTAL_TIME=$(( $END_TIME -$START_TIME))
 echo -e "Script executed in: $Y $TOTAL_TIME seconds $N"
