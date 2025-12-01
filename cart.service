@@ -1,13 +1,23 @@
 [Unit]
-Description = Cart Service
+Description=Cart Service
+After=network.target
+
 [Service]
 User=roboshop
-// highlight-start
+Group=roboshop
+WorkingDirectory=/app
+# Environment variables (inline). If you prefer a file, see the EnvironmentFile option below.
 Environment=REDIS_HOST=redis.hhrp.life
 Environment=CATALOGUE_HOST=catalogue.hhrp.life
 Environment=CATALOGUE_PORT=8080
-// highlight-end
-ExecStart=/bin/node /app/server.js
+
+# ExecStart: confirm node path with `which node` on your host; common path is /usr/bin/node
+ExecStart=/usr/bin/node /app/server.js
+Restart=always
+RestartSec=5
+# Logging to syslog; change if you prefer journald or file logging
+StandardOutput=syslog
+StandardError=syslog
 SyslogIdentifier=cart
 
 [Install]
